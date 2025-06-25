@@ -13,14 +13,14 @@ pipeline {
         stage('Checkout SCM'){
             steps{
                 script{
-                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/gauri17-pro/terraform-jenkins-eks.git']])
+                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Viren57/terraform-jenkins-eks.git']])
                 }
             }
         }
         stage('Initializing Terraform'){
             steps{
                 script{
-                    dir('EKS'){
+                    dir('eks-cluster'){
                         sh 'terraform init'
                     }
                 }
@@ -29,7 +29,7 @@ pipeline {
         stage('Formatting Terraform Code'){
             steps{
                 script{
-                    dir('EKS'){
+                    dir('eks-cluster'){
                         sh 'terraform fmt'
                     }
                 }
@@ -38,7 +38,7 @@ pipeline {
         stage('Validating Terraform'){
             steps{
                 script{
-                    dir('EKS'){
+                    dir('eks-cluster'){
                         sh 'terraform validate'
                     }
                 }
@@ -47,7 +47,7 @@ pipeline {
         stage('Previewing the Infra using Terraform'){
             steps{
                 script{
-                    dir('EKS'){
+                    dir('eks-cluster'){
                         sh 'terraform plan'
                     }
                     input(message: "Are you sure to proceed?", ok: "Proceed")
@@ -57,7 +57,7 @@ pipeline {
         stage('Creating/Destroying an EKS Cluster'){
             steps{
                 script{
-                    dir('EKS') {
+                    dir('eks-cluster') {
                         sh 'terraform $action --auto-approve'
                     }
                 }
@@ -66,8 +66,8 @@ pipeline {
         stage('Deploying Nginx Application') {
             steps{
                 script{
-                    dir('EKS/ConfigurationFiles') {
-                        sh 'aws eks update-kubeconfig --name my-eks-cluster'
+                    dir('eks-cluster/ConfigurationFiles') {
+                        sh 'aws eks update-kubeconfig --name eks-cluster'
                         sh 'kubectl apply -f deployment.yaml'
                         sh 'kubectl apply -f service.yaml'
                     }
