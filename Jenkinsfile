@@ -5,6 +5,10 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
         AWS_DEFAULT_REGION = "us-east-1"
     }
+
+    tools {
+        git 'git' // <-- This name must match the Git tool name in Jenkins
+    }
     stages {
         stage('Checkout SCM'){
             steps{
