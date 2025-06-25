@@ -10,7 +10,8 @@ sudo amazon-linux-extras enable corretto17
 sudo yum install java-17-amazon-corretto -y
 sudo yum install jenkins -y
 sudo systemctl enable jenkins
-sudo systemctl start jenkins
+# sudo systemctl start jenkins
+sudo systemctl restart jenkins
 
 # then install git
 sudo yum install git -y
