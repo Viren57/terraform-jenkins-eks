@@ -6,9 +6,6 @@ pipeline {
         AWS_DEFAULT_REGION = "us-east-1"
     }
 
-    tools {
-        git 'git' // <-- This name must match the Git tool name in Jenkins
-    }
     stages {
         stage('Checkout SCM'){
             steps{
