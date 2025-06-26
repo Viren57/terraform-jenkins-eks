@@ -6,7 +6,7 @@ pipeline {
         AWS_DEFAULT_REGION = "eu-west-1"
     }
     tools {
-        git 'github'  // This must match the "Name" in your Git installation config
+        git 'git'  // This must match the "Name" in your Git installation config
     }
     stages {
         stage('Checkout SCM'){
