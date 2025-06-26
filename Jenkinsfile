@@ -5,9 +5,7 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
         AWS_DEFAULT_REGION = "eu-west-1"
     }
-    tools {
-        git 'git'  // This must match the "Name" in your Git installation config
-    }
+    
     stages {
         stage('Checkout SCM'){
             steps{
